@@ -37,6 +37,12 @@ public class MainActivity extends RxAppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        tryToGrantPermissions();
+    }
+
     public Boolean checkPermission(String permission)
     {
         return ContextCompat.checkSelfPermission(this, permission)
@@ -79,5 +85,12 @@ public class MainActivity extends RxAppCompatActivity {
                 }
             }));
         }
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        subscriptions.unsubscribe();
     }
 }
